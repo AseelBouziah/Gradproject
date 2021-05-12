@@ -1,19 +1,19 @@
 const sql = require("./db.js");
 
 // constructor
-const Customer = function(customer) {
-  this.firstName = customer.firstName;
-  this.lastName = customer.lastName;
-  this.password = customer.password;
-  this.conPassword = customer.conPassword;
-  this.email = customer.email;
-  this.allergy = customer.allergy;
-  this.illness = customer.illness;
+const Customer = function(user) {
+  this.firstName = user.firstName;
+  this.lastName = user.lastName;
+  this.password = user.password;
+  this.conPassword = user.conPassword;
+  this.email = user.email;
+  this.allergy = user.allergy;
+  this.illness = user.illness;
 
 };
 
 Customer.create = (newCustomer, result) => {
-  sql.query("INSERT INTO customers SET ?", newCustomer, (err, res) => {
+  sql.query("INSERT INTO user SET ?", newCustomer, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -25,8 +25,25 @@ Customer.create = (newCustomer, result) => {
   });
 };
 
+Customer.login = (password,email,result) => {
+  sql.query(`SELECT * FROM user WHERE email = ${email} AND password = ${password}` , (err, res)  => {
+  if (err) {
+  console.log("error: ", err);
+        result(err, null);
+        return;
+  }
+  if (res.length > 0) {
+  result(null, { id: res[0] }) 
+  } else {
+  result(null, { res }) 
+  }
+  });
+  
+  };
+
+
 Customer.findById = (customerId, result) => {
-  sql.query(`SELECT * FROM customers WHERE id = ${customerId}`, (err, res) => {
+  sql.query(`SELECT * FROM user WHERE id = ${customerId}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -45,7 +62,7 @@ Customer.findById = (customerId, result) => {
 };
 
 Customer.getAll = result => {
-  sql.query("SELECT * FROM customers", (err, res) => {
+  sql.query("SELECT * FROM user", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -58,7 +75,7 @@ Customer.getAll = result => {
 };
 
 Customer.remove = (id, result) => {
-  sql.query("DELETE FROM customers WHERE id = ?", id, (err, res) => {
+  sql.query("DELETE FROM user WHERE id = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
