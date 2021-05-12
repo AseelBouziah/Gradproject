@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, StatusBar, Image} from 'react-native';
+import { useFonts } from 'expo-font';
 
 import AppIntroSlider from 'react-native-app-intro-slider';
 //import LinearGradient from 'react-native-linear-gradient';
@@ -10,22 +11,24 @@ const data = [
   {
     title: 'اهلا وسهلا بك ',
     text: 'قم بالانضمام لدينا لنزودك بكافة خدماتنا المميزة' ,
-    image: require('./assets/images/logo.png'),
+    image: require('./assets/images/2.jpg'),
   },
   {
     title: 'هل انت جديدة في عالم الطبخ؟',
     text: 'ابحثي عن وصفة الطبخة التي تريدين وستجدينها بكل تفاصيلها',
-    image: require('./assets/images/logo.png'),
+    image: require('./assets/images/5.jpg'),
   },
   {
     title: 'لديك اصناف محددة من الطعام وتبحثين عن طبخة بهذه الاصناف؟',
     text: 'فقط قومي بتحديد المكونات اللتي لديك وستجدين عدة وصفات بهذه الاصناف',
-    image: require('./assets/images/logo.png'),
+    image: require('./assets/images/4.jpg'),
   },
 ];
 
 const Onboarding = (props) => {
+
   const renderItem = ({item}) => {
+  
     return (
       <View style={styles.slide}>
         <Image source={item.image} style={styles.imageHeader} />
@@ -35,6 +38,7 @@ const Onboarding = (props) => {
         </View>
       </View>
     );
+    
   };
 
   const keyExtractor = (item) => item.title;
@@ -103,19 +107,20 @@ const styles = StyleSheet.create({
   },
   image: {
     marginVertical: 60,
+
   },
   title: {
     fontSize: 24,
     color: colors.black,
     textAlign: 'center',
-    fontFamily: 'OpenSans-Bold',
+   // fontFamily: 'OpenSans-Bold',
     marginHorizontal: 60,
   },
   text: {
     fontSize: 14,
     color: colors.gray,
     textAlign: 'center',
-    fontFamily: 'OpenSans-SemiBold',
+    //fontFamily: 'OpenSans-SemiBold',
     marginHorizontal: 60,
     marginTop: 20,
   },
@@ -135,7 +140,7 @@ const styles = StyleSheet.create({
   },
   rightText: {
     color: colors.blue,
-    fontFamily: 'OpenSans-SemiBold',
+   // fontFamily: 'OpenSans-SemiBold',
     fontSize: 14,
   },
   leftTextWrapper: {
@@ -148,7 +153,7 @@ const styles = StyleSheet.create({
   },
   leftText: {
     color: colors.blue,
-    fontFamily: 'OpenSans-SemiBold',
+    //fontFamily: 'OpenSans-SemiBold',
     fontSize: 14,
   },
   doneButtonWrapper: {
@@ -161,13 +166,15 @@ const styles = StyleSheet.create({
   },
   doneButtonText: {
     fontSize: 14,
-    fontFamily: 'OpenSans-SemiBold',
+   // fontFamily: 'OpenSans-SemiBold',
     textAlign: 'center',
     color: colors.white,
   },
   imageHeader: {
-    height: 270,
-    width: 260
+    height: 300,
+    width: 300,
+    borderRadius:260/2
+
 },
 });
 
