@@ -1,13 +1,20 @@
 import React, {useState} from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import {SignIn,CreateAccount,Search,Home ,Details,Search2,Profile,Splash } from "./src/Screens";
+import { Recipe, SignIn,CreateAccount,Search , Home ,Details,Search2,Profile,Splash  } from "./src/Screens";
+import Wasfatk from "./src/components/Wasfatk";
+import login from "./src/components/login";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { AuthContext } from "./src/context";
 //import Onboarding from './src/screens/Onboarding';
-//import Home from './components/Home';
 import Onboarding from './Onboarding';
+import Searcha from "./src/components/Searcha";
+import Searchb from "./src/components/Searchb";
+import Searchc from "./src/components/Searchc";
+//import {Channel} from "./src/components/Channel";
+
+
 
 
 const AuthStack = createStackNavigator();
@@ -15,13 +22,16 @@ const Tabs = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 const SearchStack = createStackNavigator();
+const RecipeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const RootStack = createStackNavigator();
 const AppStack = createStackNavigator();
+const TabkhatStack = createStackNavigator();
 import {MaterialIcon} from './src/components/Icon';
 import Icon from './src/components/icon';
 import TabBar from './src/components/tabbar';
 import { Ionicons } from '@expo/vector-icons';
+
 
 
 
@@ -46,6 +56,7 @@ const RootStackScreen = ({ userToken }) => (
           animationEnabled: false
         }}
       />
+      
     )}
   </RootStack.Navigator>
 );
@@ -73,14 +84,23 @@ const AuthStackScreen = () => (
   <AuthStack.Navigator>
     <AuthStack.Screen
       name="SignIn"
-      component={SignIn}
+      component={login}
       options={{ title: "تسجيل الدخول" }}
     />
-    <AuthStack.Screen
+    
+    <AuthStack.Screen 
+    name="TabsScreen"
+    component={TabsScreen}
+    options={{
+      headerShown: false,
+    }}
+  />
+  <AuthStack.Screen
       name="CreateAccount"
       component={CreateAccount}
       options={{ title: "عمل حساب جديد" }}
     />
+    
   </AuthStack.Navigator>
 );
 
@@ -102,6 +122,7 @@ const HomeStackScreen = () => (
             headerShown: false,
           }}
         />
+  
    <HomeStack.Screen
           name="Search"
           component={Search}
@@ -109,11 +130,31 @@ const HomeStackScreen = () => (
             headerShown: false,
           }}
         />
+       <SearchStack.Screen name="Searcha" component={Searcha} options={{
+            headerShown: false,
+          }} />
   </HomeStack.Navigator>
 );
 const SearchStackScreen = () => (
   <SearchStack.Navigator>
     <SearchStack.Screen name="بحث" component={Search} />
+    <SearchStack.Screen name="Searcha" component={Searcha} options={{
+            headerShown: false,
+          }} />
+           <SearchStack.Screen
+          name="Searchb"
+          component={Searchb}
+          options={{
+            headerShown: false,
+          }}
+        />
+         <SearchStack.Screen
+          name="Searchc"
+          component={Searchc}
+          options={{
+            headerShown: false,
+          }}
+        />
 
   </SearchStack.Navigator>
 );
@@ -128,6 +169,15 @@ const SearchStackScreen2 = () => (
           }}
         />
         <SearchStack.Screen
+          name="Wasfatk"
+          component={Wasfatk}
+          options={{
+            headerShown: false,
+          }}
+        />
+    
+
+        <SearchStack.Screen
           name="Profile"
           component={Profile}
           options={{
@@ -141,9 +191,29 @@ const SearchStackScreen2 = () => (
             headerShown: false,
           }}
         />
+         <SearchStack.Screen
+          name="login"
+          component={login}
+          options={{
+            headerShown: false,
+          }}
+        />
+       
   </SearchStack.Navigator>
 );
 
+const RecipeStackScreen = () => (
+<RecipeStack.Navigator>
+  <RecipeStack.Screen name="وصفاتك" component={Recipe} />
+      <RecipeStack.Screen 
+      name="Recipe"
+          component={Recipe}
+          options={{
+            headerShown: false,
+          }}
+          />
+</RecipeStack.Navigator>
+);
 const ProfileStackScreen = () => (
   <ProfileStack.Navigator>
     <ProfileStack.Screen name="صفحتي الشخصية" component={Profile} />
@@ -164,9 +234,13 @@ const TabsScreen = () => (
         }
         else if (route.name === 'بحث') {
             iconName = 'ios-search';
-        } else if (route.name === 'الاعدادات') {
+        }   else if (route.name === 'وصفاتك') {
+          iconName = 'ios-add';
+      }
+        else if (route.name === 'الاعدادات') {
             iconName = 'ios-settings';
         }
+      
 
         return <Ionicons name={iconName} size={size} color={color} />;
     },
@@ -177,6 +251,7 @@ const TabsScreen = () => (
     
     <Tabs.Screen name="الصفحة الرئيسية" options={myOptions} component={HomeStackScreen}/>
     <Tabs.Screen name="بحث" component={SearchStackScreen} />
+    <Tabs.Screen name="وصفاتك" component={RecipeStackScreen} />
     <Tabs.Screen name="الاعدادات" component={SearchStackScreen2} />
   </Tabs.Navigator>
 );
