@@ -32,6 +32,30 @@ exports.create = (req, res) => {
     });
   };
 
+
+  // customer login 
+exports.login = (req, res) => {
+  // Validate request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+  }
+  
+    var password = req.body.password;
+    var email = req.body.email;
+ 
+
+Customer.login(email,password, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while login the Customer."
+      });
+    else res.send(data);
+  });
+};
+
 // Retrieve all Customers from the database.
 exports.findAll = (req, res) => {
     Customer.getAll((err, data) => {
