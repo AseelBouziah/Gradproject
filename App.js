@@ -12,7 +12,7 @@ import Onboarding from './Onboarding';
 import Searcha from "./src/components/Searcha";
 import Searchb from "./src/components/Searchb";
 import Searchc from "./src/components/Searchc";
-//import {Channel} from "./src/components/Channel";
+import Channel from "./src/components/Channel";
 
 
 
@@ -122,6 +122,7 @@ const HomeStackScreen = () => (
             headerShown: false,
           }}
         />
+     
   
    <HomeStack.Screen
           name="Search"
@@ -133,6 +134,13 @@ const HomeStackScreen = () => (
        <SearchStack.Screen name="Searcha" component={Searcha} options={{
             headerShown: false,
           }} />
+<HomeStack.Screen
+          name="Channel"
+          component={Channel}
+          options={{
+            headerShown: false,
+          }}
+        />
   </HomeStack.Navigator>
 );
 const SearchStackScreen = () => (
