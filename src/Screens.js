@@ -42,6 +42,7 @@ import Constants from 'expo-constants';
 import {SearchBar} from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import { Rating, AirbnbRating } from 'react-native-ratings';
+//import Channel from './components/Channel';
 
 import {
   HeaderButtons,
@@ -1292,7 +1293,8 @@ ic:{
         
         <TouchableHighlight
           style={[styles.buttonContainer1, styles.loginButton1]}
-       
+          onPress={() =>
+            navigation.navigate('Channel')}
          >
           <Text style={styles.loginText}>لصحتك</Text>
         </TouchableHighlight>
