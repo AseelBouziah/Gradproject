@@ -4,9 +4,8 @@ module.exports = app => {
     const imgtitle = require("../controller/imgtitle.controller.js");
     const taabkh = require("../controller/finalfinal.controller.js");
     const recipe = require ("../controller/recipe.controller.js");
+    const tips = require ("../controller/tips.controller.js");
   
-  
-    
     app.get(/search\/(?:([^\/]+?))\/?$/i, function (req, res) {
       var search = req.params[0]
       var sql = "SELECT * from college_of_engh1 WHERE HNumber LIKE '%"+search+"%'"
@@ -16,7 +15,8 @@ module.exports = app => {
       })
     })
 
-    
+    // اعادة نصائح صحية
+   app.get("/tips", tips.findAll);
    //إضافة وصفة
 
    app.post("/recipe", recipe.create);
