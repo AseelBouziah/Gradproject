@@ -13,7 +13,8 @@ import Searcha from "./src/components/Searcha";
 import Searchb from "./src/components/Searchb";
 import Searchc from "./src/components/Searchc";
 import Channel from "./src/components/Channel";
-
+import About from "./src/components/About";
+import favourite from "./src/components/favourite";
 
 
 
@@ -206,7 +207,20 @@ const SearchStackScreen2 = () => (
             headerShown: false,
           }}
         />
-       
+         <SearchStack.Screen
+          name="About"
+          component={About}
+          options={{
+            headerShown: false,
+          }}
+        />
+         <SearchStack.Screen
+          name="favourite"
+          component={favourite}
+          options={{
+            headerShown: false,
+          }}
+        />
   </SearchStack.Navigator>
 );
 
