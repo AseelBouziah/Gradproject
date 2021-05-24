@@ -1,108 +1,157 @@
-import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import {CheckBox} from "native-base"
+import * as React from "react";
+//import { HALLS } from "../halls";
+import { StyleSheet, View, Image ,ScrollView, Alert } from "react-native";
+import { Searchbar } from "react-native-paper";
+import { Card} from "react-native-elements";
+import axios from 'axios'
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+import CheckboxGroup from 'react-native-checkbox-group'
 
-export default class App extends React.Component {
-  state={
-    selectedLang1:false,
-    selectedLang2:false,
-    selectedLang3:false,
-    selectedLang4:false,
+
+
+export default class Searchc extends React.Component {
+  constructor(props) {
+    super(props),
+      (this.state = {
+
+        search: '',
+        rooms: null,
+        roomNo: null,
+        desc: "",
+        floor: "",
+        //college: "",
+        //campus: "",
+      });
+    //this.setData = this.setData.bind(this);
+    
 
   }
-  render(){
-    const {selectedLang1,selectedLang2,selectedLang3,selectedLang4} = this.state
+
+  updateSearch = (search) => {
+    this.setState({search});
+  };
+  setData = (number) => {
+ 
+    //let halls = this.state.rooms;
+   let url4 = 'http://' + '192.168.1.8' + ':3000/searcha/'+'ahg';
+    axios.get(url4)
+    .then(response => {
+      this.setState({ rooms: response.data }) 
+        this.setState({rooms : response.data})
+       
+  })
+  alert('دجاج,ثوم,بصل')
+  
+  }
+
+  render() {
+
+
+
+    const search = this.state.search;
+    const rooms = this.state.rooms;
     return (
-      <View style={styles.container}>
-        <Text style={styles.header}>قم باختيار المكونات التي لديك لنساعدك باختيار طبخة اليوم</Text>
-        <View style={styles.item} >
-        <View style={styles.item2}>
-        <Text style={
-              {...styles.checkBoxTxt,
-                color:this.state.selectedLang1?"blue":"gray",
-                fontWeight:this.state.selectedLang1? "bold" :"normal"
+      <Container>
+        <Header androidStatusBarColor="#146aff" style={{ backgroundColor: "#146aff" }}>
+          <Left/>
+          <Body>
+            <Title style={{color:'white'}}>المكونات</Title>
+          </Body>
+          <Right />
+        </Header>
+        <Content>
+         
+        <CheckboxGroup
+              callback={(selected) => { console.log(selected) }}
+              iconColor={"#00a2dd"}
+              iconSize={30}
+              checkedIcon="ios-checkbox-outline"
+              uncheckedIcon="ios-square-outline"
+              checkboxes={[
+                {
+                  label: "دجاج", // label for checkbox item
+                  value: 1, // selected value for item, if selected, what value should be sent?
+                  selected: true // if the item is selected by default or not.
+                },
+                {
+                  label: "حلبة",
+                  value: 2
+                },
+                {
+                  label: "ثوم",
+                  value: 3
+                },
+                {
+                  label: "بصل",
+                  value: 4
+                },
+                {
+                  label: "ارز",
+                  value: 5
+                },
+                {
+                  label: "بندورة",
+                  value: 6
+                },
+              ]}
+              labelStyle={{
+                color: '#333'
               }}
-              >حلبة</Text>
-            <CheckBox style={styles.checkBox}  checked={selectedLang1} color="blue" onPress={()=>this.setState({selectedLang1:!selectedLang1})}/>
-           </View>
-        </View>
-        <View style={styles.item}>
-        <View style={styles.item2}>
-        <Text style={
-              {...styles.checkBoxTxt,
-                color:this.state.selectedLang2?"blue":"gray",
-                fontWeight:this.state.selectedLang2? "bold" :"normal"
+              rowStyle={{
+                flexDirection: 'row'
               }}
-              >الفلفل الأخضر</Text>
-            <CheckBox style={styles.checkBox}  checked={this.state.selectedLang2} color="blue" onPress={()=>this.setState({selectedLang2:!selectedLang2})}/>
-            </View>
-        </View>
-        <View style={styles.item}>
-          <View style={styles.item2}>
-        <Text style={
-              {...styles.checkBoxTxt,
-                color:this.state.selectedLang3?"blue":"gray",
-                fontWeight:this.state.selectedLang3? "bold" :"normal"
-              }}
-              >الثوم</Text>
-            <CheckBox style={styles.checkBox}  checked={this.state.selectedLang3} color="blue" onPress={()=>this.setState({selectedLang3:!selectedLang3})}/>
-            </View>
-        </View>
-        <View style={styles.item}>
-        <View style={styles.item2}>
-        <Text style={
-              {...styles.checkBoxTxt,
-                color:this.state.selectedLang4?"blue":"gray",
-                fontWeight:this.state.selectedLang4? "bold" :"normal"
-              }}
-              >بصل</Text>
-            <CheckBox style={styles.checkBox} checked={this.state.selectedLang4} color="blue" onPress={()=>this.setState({selectedLang4:!selectedLang4})}/>
-           </View>
-        </View>
-        <TouchableOpacity style={styles.submit}>
-          <Text style={{color:"white"}}>SUBMIT</Text>
-        </TouchableOpacity>
-  
-  
-      </View>
+              rowDirection={"column"}
+            />
+            <ScrollView style={styles.scrollView}> 
+             {this.state.rooms && this.state.rooms.map(rom=>
+              <Card title="وصفة الطبيخ">
+              <Text style={{ margin: 10 }}> {rom.list_title}</Text>
+              <Image source={{uri:rom.list_img}} style = {{height: 200, resizeMode : 'stretch', margin: 5 }} />
+              <Text style={{ margin: 10 }}> {rom.list_p}</Text>
+              <Text style={{ margin: 10 }}> {rom.list_time}</Text>
+              <Text style={{ margin: 10 }}> {rom.list_timeA}</Text>
+              <Text style={{ margin: 10 }}> {rom.list_time1}</Text>
+              <Text style={{ margin: 10 }}> {rom.list_time1A}</Text>
+              <Text style={{ margin: 10 }}> {rom.list_count}</Text>
+              <Text style={{ margin: 10 }}> {rom.list_countA}</Text>
+              <Text style={{ margin: 10 }}> {rom.list_calories}</Text>
+              <Text style={{ margin: 10 }}> {rom.list_caloriesA}</Text>
+              <Text style={{ margin: 10 }}> {rom.list_amount}</Text>
+              <Text style={{ margin: 10 }}> {rom.list_name}</Text>
+              <Text style={{ margin: 10 }}> {rom.list_Idiv}</Text>
+              <Text style={{ margin: 10 }}> {rom.list_way}</Text>
+              <Text style={{ margin: 10 }}> {rom.list_name1}</Text>
+              <Text style={{ margin: 10 }}> {rom.list_IIdiv}</Text>
+              
+            </Card>
+            ) }
+            </ScrollView>
+        </Content>
+        <Footer >
+          <FooterTab style={{left:'37%'}}>
+          <Searchbar
+          placeholder="ابحث"
+          onChangeText={this.updateSearch}
+          value={search}
+          onIconPress={(e)=>this.setData(search)}
+          icon={({ size, color }) => (
+            <Text>بحث</Text>
+            
+          )}
+        />
+          </FooterTab>
+        </Footer>
+        </Container>
     );
   }
-  
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#f6f6f6',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 10,
+    justifyContent: "center",
+    backgroundColor: "#f0f8ff",
+    top:30
   },
-  header:{
-    fontSize:25,
-    fontWeight:"bold",
-    color:"#364f6b",
-    marginBottom:40
-  },
-  item:{
-    width:"80%",
-    backgroundColor:"#fff",
-    borderRadius:20,
-    padding:10,
-    marginBottom:10,
-    flexDirection:"row",
-    
-  },
-  item2:{
-    marginLeft:250
-
-  },
-
-  submit:{
-    width:"80%",
-    backgroundColor:"blue",
-    borderRadius:20,
-    padding:10,
-    alignItems:"center",
-    marginTop:40
-  }
 });
+

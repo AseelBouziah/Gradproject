@@ -1,9 +1,16 @@
 import React, {Component} from 'react';
-import {TouchableOpacity,Image, StyleSheet, Text, View,FlatList} from 'react-native';
+import {Button,Image, StyleSheet, Text, View,FlatList,TextInput} from 'react-native';
+//import Comments  from './Comments';
+//import Rate from "./Rate";
+import axios from 'axios'
+import { AirbnbRating } from 'react-native-ratings';
+import { Comment, Recipe } from '../Screens';
+
 
 export default class Tabkhat extends Component{
   
 
+  
     state ={
         data:[]
       }
@@ -14,12 +21,24 @@ export default class Tabkhat extends Component{
         this.setState({data: customers});
     
       }
+
+      
+
+
+
+      
+      
+        
+
+     
+     
     componentDidMount(){
       this.fetchData();
+     // this.submitData();
+      
     }
       render() {
         return (
-  
           <View >
           
            <FlatList
@@ -44,9 +63,17 @@ export default class Tabkhat extends Component{
               <Text style={{color:'#000000', fontWeight:'bold'}}>{item.list_way}</Text>
               <Text style={{color:'#000000', fontWeight:'bold'}}>{item.list_name1}</Text>
               <Text style={{color:'#000000', fontWeight:'bold'}}>{item.list_IIdiv}</Text>
-              
-            
 
+              
+              <AirbnbRating  size={15}/>
+    
+             
+              <View>
+                
+         <Comment/>
+          
+  
+        </View>
              </View>
             
     
@@ -58,6 +85,11 @@ export default class Tabkhat extends Component{
       }
     }
     
+
+
+
+    
+
     const styles = StyleSheet.create({
       container: {
         flex: 1,
@@ -65,4 +97,38 @@ export default class Tabkhat extends Component{
         alignItems: 'center',
         backgroundColor: '#fffafa',
       },
+     
+      inputs: {
+        height: 50,
+        width: 370,
+        borderColor: "#005d66",
+        borderWidth: 1,
+        padding: 15,
+        borderRadius: 20,
+        backgroundColor: "#fff",
+        justifyContent: "center",
+        alignItems: "center",
+      },
+    
+     
+      loginButton: {
+        bottom:100,
+        backgroundColor: '#fff',
+        justifyContent: "center",
+        alignItems: "center",
+        height: 45,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 20,
+        width: 150,
+        borderRadius: 30,
+        padding: 15,
+
+        
+      },
+      
     });
+
+
+   
