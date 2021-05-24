@@ -56,7 +56,62 @@ import SettingsList from 'react-native-settings-list';
 import RNPickerSelect from 'react-native-picker-select';
 import {Categories} from "./components/Categories";
 
+export const Comment = ({route , navigation}) => {
+  
 
+   
+  const [comment,setComment] = useState()
+  
+
+ 
+  submitData = ()=>{
+    fetch("http://192.168.1.8:3000/Comment",{
+             method:"post",
+             headers:{
+               'Content-Type': 'application/json'
+             },
+             body:JSON.stringify({
+               
+              comment
+             })
+         })
+         .then(res=>res.json())
+         .then(data=>{
+             Alert.alert(`شكرا لتقييمك :)`)
+            
+         })
+         .catch(err=>{
+           Alert.alert("someting went wrong")
+       })
+   }
+
+   
+  return (
+    
+       
+        <View>
+           <TextInput
+           style={styles.inputs}
+            placeholder='تقييمك'
+            autoCapitalize="none"
+            placeholderTextColor='black'
+            onChangeText={text =>setComment(text)}
+          /> 
+          
+          <Button title="تقييم" style={styles.loginButton}  
+         onPress={() => {
+        
+          submitData()
+         
+        }
+      }
+      
+      /> 
+            
+        </View>
+    
+  );
+};
 
 const UselessTextInput = (props) => {
   return (
@@ -856,7 +911,7 @@ ic:{
       >
 
         <View key={'1'} tabLabel={' البحث'}>
-          <Text>{Alert.alert('kjmjklmdklmkkkk')}</Text>
+          <Text>{alert("يجب عليك الابتعاد عن الوصفات التي تحتوي على سكريات")}</Text>
           <Searchroom/>
         <Integreads/>
         </View>
@@ -910,14 +965,18 @@ ic:{
             backgroundColor='#D1D1D1'
             titleStyle={{color:'blue'}}
             arrowStyle={{tintColor:'blue'}}
-            onPress={() => Alert.alert('Logged out')}/>
+            onPress={() =>
+              navigation.navigate('favourite')
+            }/>
            
             <SettingsList.Item
             title=' نبذة عن التطبيق'
             backgroundColor='#D1D1D1'
             titleStyle={{color:'blue'}}
             arrowStyle={{tintColor:'blue'}}
-            onPress={() => Alert.alert('Logged out')}/>
+            onPress={() =>
+              navigation.navigate('About')
+            }/>
                  <SettingsList.Item
             title='تقييم التطبيق'
             backgroundColor='#D1D1D1'
